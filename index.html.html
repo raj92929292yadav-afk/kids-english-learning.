@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A-Z Typing Game For Kids</title>
+
+<style>
+
+/* Puri website ki styling */
+body{
+    margin:0;
+    font-family:Comic Sans MS, cursive;
+    text-align:center;
+    background:linear-gradient(45deg,#ff9a9e,#fad0c4,#a1c4fd,#c2e9fb);
+    min-height:100vh;
+}
+
+/* Main heading */
+h1{
+    color:#ffffff;
+    font-size:50px;
+    text-shadow:3px 3px 5px black;
+    margin-top:20px;
+}
+
+/* Letter box */
+#letterBox{
+    width:250px;
+    height:250px;
+    margin:30px auto;
+    background:white;
+    border-radius:30px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:120px;
+    font-weight:bold;
+    color:#ff5722;
+    box-shadow:0 0 25px rgba(0,0,0,0.3);
+}
+
+/* Score styling */
+#score{
+    font-size:35px;
+    color:#ffffff;
+    font-weight:bold;
+    text-shadow:2px 2px 4px black;
+}
+
+/* Message styling */
+#message{
+    font-size:30px;
+    margin-top:20px;
+    font-weight:bold;
+    color:#ffffff;
+}
+
+/* Instruction box */
+.instructions{
+    width:80%;
+    max-width:600px;
+    margin:20px auto;
+    background:white;
+    padding:15px;
+    border-radius:15px;
+    font-size:20px;
+    box-shadow:0 0 15px rgba(0,0,0,0.2);
+}
+
+/* Animation */
+@keyframes jump{
+    0%{transform:scale(1);}
+    50%{transform:scale(1.15);}
+    100%{transform:scale(1);}
+}
+
+.animate{
+    animation:jump 0.5s;
+}
+
+</style>
+</head>
+<body>
+
+<h1>🌟 A-Z Typing Fun 🌟</h1>
+
+<div class="instructions">
+    Type the letter shown below on your keyboard.
+</div>
+
+<div id="letterBox">A</div>
+
+<div id="score">Score: 0</div>
+
+<div id="message">Let's Start!</div>
+
+<script>
+
+// A-Z letters
+const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+// Score variable
+let score = 0;
+
+// Current letter
+let currentLetter = "";
+
+// Random letter show karne ke liye function
+function showLetter(){
+
+    // Random index select karna
+    let randomIndex = Math.floor(Math.random() * letters.length);
+
+    // Letter nikalna
+    currentLetter = letters[randomIndex];
+
+    // Screen par letter dikhana
+    document.getElementById("letterBox").innerHTML = currentLetter;
+
+    // Animation add karna
+    document.getElementById("letterBox").classList.add("animate");
+
+    setTimeout(()=>{
+        document.getElementById("letterBox").classList.remove("animate");
+    },500);
+}
+
+// Keyboard press detect karna
+document.addEventListener("keydown",function(event){
+
+    // User ne jo key press ki
+    let pressedKey = event.key.toUpperCase();
+
+    // Agar sahi letter hai
+    if(pressedKey === currentLetter){
+
+        score++;
+
+        document.getElementById("score").innerHTML =
+        "Score: " + score;
+
+        document.getElementById("message").innerHTML =
+        "🎉 Great Job!";
+
+        showLetter();
+    }
+
+    // Agar galat letter hai
+    else{
+
+        document.getElementById("message").innerHTML =
+        "❌ Try Again!";
+    }
+});
+
+// Game start hone par pehla letter
+showLetter();
+
+</script>
+
+</body>
+</html>
